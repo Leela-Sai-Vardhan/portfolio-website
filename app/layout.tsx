@@ -6,6 +6,7 @@ import { ThemeProvider } from "@/components/theme-provider";
 import { Sidebar } from "@/components/sidebar";
 import { SidebarProvider } from "@/components/sidebar-context";
 import { MainContent } from "@/components/main-content";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 export const metadata: Metadata = {
   title: "Leela Sai Vardhan Dhavala - Full-Stack Developer",
@@ -36,6 +37,7 @@ export default function RootLayout({
             </div>
           </SidebarProvider>
         </ThemeProvider>
+        <SpeedInsights />
       </body>
     </html>
   );
