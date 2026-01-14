@@ -1,8 +1,8 @@
 'use client';
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
-import { Search, X } from "lucide-react";
+import { Search, X, Eye } from "lucide-react";
 import { ArrowRight, ArrowLeft, Github, ExternalLink, Clock } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -55,10 +55,44 @@ export default function ProjectsPage() {
     const [searchQuery, setSearchQuery] = useState("");
     const [selectedTech, setSelectedTech] = useState<string[]>([]);
     const [selectedStatus, setSelectedStatus] = useState<string[]>([]);
+    const [projectViews, setProjectViews] = useState<Record<number, number>>({});
 
     const handleCardHover = (index: number) => {
         setVisitedCards(prev => new Set(prev).add(index));
     };
+
+    const handleCardClick = async (index: number) => {
+        try {
+            const response = await fetch(`/api/projects/${index}/views`, {
+                method: 'POST',
+            });
+            const data = await response.json();
+            if (data.views) {
+                setProjectViews(prev => ({ ...prev, [index]: data.views }));
+            }
+        } catch (error) {
+            console.error('Error incrementing view count:', error);
+        }
+    };
+
+    // Fetch view counts on mount
+    useEffect(() => {
+        const fetchViewCounts = async () => {
+            const viewsData: Record<number, number> = {};
+            for (let i = 0; i < projects.length; i++) {
+                try {
+                    const response = await fetch(`/api/projects/${i}/views`);
+                    const data = await response.json();
+                    viewsData[i] = data.views || 0;
+                } catch (error) {
+                    console.error(`Error fetching views for project ${i}:`, error);
+                    viewsData[i] = 0;
+                }
+            }
+            setProjectViews(viewsData);
+        };
+        fetchViewCounts();
+    }, []);
 
     // Get all unique tech stacks
     const allTech = Array.from(new Set(projects.flatMap(p => p.tech)));
@@ -68,7 +102,8 @@ export default function ProjectsPage() {
     const filteredProjects = projects.filter(project => {
         const matchesSearch = searchQuery === "" ||
             project.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-            project.description.toLowerCase().includes(searchQuery.toLowerCase());
+            project.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            project.tech.some(tech => tech.toLowerCase().includes(searchQuery.toLowerCase()));
 
         const matchesTech = selectedTech.length === 0 ||
             selectedTech.some(tech => project.tech.includes(tech));
@@ -183,7 +218,8 @@ export default function ProjectsPage() {
                             <div
                                 key={index}
                                 onMouseEnter={() => handleCardHover(index)}
-                                className={`group relative flex flex-col gap-4 rounded-lg glass-card glass-card-hover p-6 ${visitedCards.has(index)
+                                onClick={() => handleCardClick(index)}
+                                className={`group relative flex flex-col gap-4 rounded-lg glass-card glass-card-hover p-6 cursor-pointer ${visitedCards.has(index)
                                     ? ''
                                     : index % 2 === 0
                                         ? 'card-tilt-left'
@@ -210,6 +246,12 @@ export default function ProjectsPage() {
                                             </span>
                                         )}
                                     </div>
+                                </div>
+
+                                {/* View Count */}
+                                <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                                    <Eye className="h-4 w-4" />
+                                    <span>{projectViews[index] || 0} views</span>
                                 </div>
 
                                 {/* Title */}
