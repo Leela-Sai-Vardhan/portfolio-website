@@ -1,3 +1,6 @@
+'use client';
+
+import { useState } from "react";
 import Link from "next/link";
 import { ArrowRight, ArrowLeft, Github, ExternalLink, Clock } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -45,6 +48,12 @@ const projects = [
 ];
 
 export default function ProjectsPage() {
+    const [visitedCards, setVisitedCards] = useState<Set<number>>(new Set());
+
+    const handleCardHover = (index: number) => {
+        setVisitedCards(prev => new Set(prev).add(index));
+    };
+
     return (
         <div className="container mx-auto max-w-5xl px-6 py-16">
             <div className="space-y-8">
@@ -61,7 +70,13 @@ export default function ProjectsPage() {
                     {projects.map((project, index) => (
                         <div
                             key={index}
-                            className="group relative flex flex-col gap-4 rounded-lg border border-border bg-card p-6 transition-all hover:border-primary/50 hover:shadow-lg"
+                            onMouseEnter={() => handleCardHover(index)}
+                            className={`group relative flex flex-col gap-4 rounded-lg glass-card glass-card-hover p-6 ${visitedCards.has(index)
+                                    ? ''
+                                    : index % 2 === 0
+                                        ? 'card-tilt-left'
+                                        : 'card-tilt-right'
+                                }`}
                         >
                             {/* Status Badge */}
                             <div className="flex items-center justify-between">

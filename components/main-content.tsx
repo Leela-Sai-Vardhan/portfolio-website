@@ -2,6 +2,7 @@
 
 import { useSidebar } from "@/components/sidebar-context";
 import { Navbar } from "@/components/navbar";
+import { PageTransition } from "@/components/page-transition";
 
 export function MainContent({ children }: { children: React.ReactNode }) {
     const { isCollapsed } = useSidebar();
@@ -13,7 +14,7 @@ export function MainContent({ children }: { children: React.ReactNode }) {
 
             {/* Page Content */}
             <main className="pt-14">
-                {children}
+                <PageTransition>{children}</PageTransition>
             </main>
         </div>
     );

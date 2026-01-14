@@ -19,6 +19,7 @@ import {
     CommandItem,
     CommandList,
 } from "@/components/ui/command";
+import { useSidebar } from "@/components/sidebar-context";
 
 const navigation = [
     { name: "Introduction", href: "/", icon: Home },
@@ -33,6 +34,7 @@ const navigation = [
 export function CommandPalette() {
     const router = useRouter();
     const [open, setOpen] = React.useState(false);
+    const { isCollapsed } = useSidebar();
 
     React.useEffect(() => {
         const down = (e: KeyboardEvent) => {
@@ -67,55 +69,57 @@ export function CommandPalette() {
                 </kbd>
             </button>
 
-            {/* Command Dialog */}
-            <CommandDialog open={open} onOpenChange={setOpen}>
-                <CommandInput placeholder="Search sections..." />
-                <CommandList>
-                    <CommandEmpty>No results found.</CommandEmpty>
-                    <CommandGroup heading="Sections">
-                        {navigation.map((item) => {
-                            const Icon = item.icon;
-                            return (
-                                <CommandItem
-                                    key={item.href}
-                                    onSelect={() => {
-                                        runCommand(() => router.push(item.href));
-                                    }}
-                                >
-                                    <Icon className="mr-2 h-4 w-4" />
-                                    <span>{item.name}</span>
-                                </CommandItem>
-                            );
-                        })}
-                    </CommandGroup>
-                    <CommandGroup heading="Links">
-                        <CommandItem
-                            onSelect={() => {
-                                runCommand(() => window.open("https://github.com/yourusername", "_blank"));
-                            }}
-                        >
-                            <span className="mr-2">🔗</span>
-                            <span>GitHub Profile</span>
-                        </CommandItem>
-                        <CommandItem
-                            onSelect={() => {
-                                runCommand(() => window.open("https://linkedin.com/in/yourusername", "_blank"));
-                            }}
-                        >
-                            <span className="mr-2">🔗</span>
-                            <span>LinkedIn Profile</span>
-                        </CommandItem>
-                        <CommandItem
-                            onSelect={() => {
-                                runCommand(() => window.open("/resume.pdf", "_blank"));
-                            }}
-                        >
-                            <span className="mr-2">📄</span>
-                            <span>Download Resume</span>
-                        </CommandItem>
-                    </CommandGroup>
-                </CommandList>
-            </CommandDialog>
+            {/* Command Dialog with dynamic positioning */}
+            <div className={`transition-all duration-300 ${isCollapsed ? 'ml-0' : 'ml-32'}`}>
+                <CommandDialog open={open} onOpenChange={setOpen}>
+                    <CommandInput placeholder="Search sections..." />
+                    <CommandList>
+                        <CommandEmpty>No results found.</CommandEmpty>
+                        <CommandGroup heading="Sections">
+                            {navigation.map((item) => {
+                                const Icon = item.icon;
+                                return (
+                                    <CommandItem
+                                        key={item.href}
+                                        onSelect={() => {
+                                            runCommand(() => router.push(item.href));
+                                        }}
+                                    >
+                                        <Icon className="mr-2 h-4 w-4" />
+                                        <span>{item.name}</span>
+                                    </CommandItem>
+                                );
+                            })}
+                        </CommandGroup>
+                        <CommandGroup heading="Links">
+                            <CommandItem
+                                onSelect={() => {
+                                    runCommand(() => window.open("https://github.com/yourusername", "_blank"));
+                                }}
+                            >
+                                <span className="mr-2">🔗</span>
+                                <span>GitHub Profile</span>
+                            </CommandItem>
+                            <CommandItem
+                                onSelect={() => {
+                                    runCommand(() => window.open("https://linkedin.com/in/yourusername", "_blank"));
+                                }}
+                            >
+                                <span className="mr-2">🔗</span>
+                                <span>LinkedIn Profile</span>
+                            </CommandItem>
+                            <CommandItem
+                                onSelect={() => {
+                                    runCommand(() => window.open("/resume.pdf", "_blank"));
+                                }}
+                            >
+                                <span className="mr-2">📄</span>
+                                <span>Download Resume</span>
+                            </CommandItem>
+                        </CommandGroup>
+                    </CommandList>
+                </CommandDialog>
+            </div>
         </>
     );
 }

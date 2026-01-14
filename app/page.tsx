@@ -41,19 +41,19 @@ export default function Home() {
 
         {/* Quick Stats */}
         <div className="grid grid-cols-2 gap-6 pt-8 md:grid-cols-4">
-          <div className="space-y-1">
+          <div className="glass-card glass-card-hover rounded-lg p-4 space-y-1">
             <p className="text-3xl font-bold text-primary">5+</p>
             <p className="text-sm text-muted-foreground">Projects Built</p>
           </div>
-          <div className="space-y-1">
+          <div className="glass-card glass-card-hover rounded-lg p-4 space-y-1">
             <p className="text-3xl font-bold text-primary">3+</p>
             <p className="text-sm text-muted-foreground">Hackathons</p>
           </div>
-          <div className="space-y-1">
+          <div className="glass-card glass-card-hover rounded-lg p-4 space-y-1">
             <p className="text-3xl font-bold text-primary">10+</p>
             <p className="text-sm text-muted-foreground">Technologies</p>
           </div>
-          <div className="space-y-1">
+          <div className="glass-card glass-card-hover rounded-lg p-4 space-y-1">
             <p className="text-3xl font-bold text-primary">Open</p>
             <p className="text-sm text-muted-foreground">To Opportunities</p>
           </div>
