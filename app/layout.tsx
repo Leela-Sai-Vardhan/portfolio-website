@@ -4,7 +4,8 @@ import "./globals.css";
 
 import { ThemeProvider } from "@/components/theme-provider";
 import { Sidebar } from "@/components/sidebar";
-import { Navbar } from "@/components/navbar";
+import { SidebarProvider } from "@/components/sidebar-context";
+import { MainContent } from "@/components/main-content";
 
 export const metadata: Metadata = {
   title: "Leela Sai Vardhan Dhavala - Full-Stack Developer",
@@ -25,22 +26,15 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <div className="relative flex min-h-screen">
-            {/* Sidebar */}
-            <Sidebar />
+          <SidebarProvider>
+            <div className="relative flex min-h-screen">
+              {/* Sidebar */}
+              <Sidebar />
 
-            {/* Main Content Area - responsive to sidebar */}
-            <div className="flex-1 transition-all duration-300 pl-64">
-              {/* Note: Sidebar collapse handled via CSS in sidebar component */}
-              {/* Navbar */}
-              <Navbar />
-
-              {/* Page Content */}
-              <main className="pt-14">
-                {children}
-              </main>
+              {/* Main Content Area */}
+              <MainContent>{children}</MainContent>
             </div>
-          </div>
+          </SidebarProvider>
         </ThemeProvider>
       </body>
     </html>

@@ -1,11 +1,11 @@
 "use client";
 
-import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Home, User, Briefcase, Code, Award, Mail, Menu, X, Linkedin, FileText } from "lucide-react";
+import { Home, User, Briefcase, Code, Award, Mail, Menu, X, ArrowUpRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
+import { useSidebar } from "@/components/sidebar-context";
 
 const navigation = [
     { name: "Introduction", href: "/", icon: Home },
@@ -17,21 +17,15 @@ const navigation = [
     { name: "Stats", href: "/stats", icon: Award },
 ];
 
-const quickLinks = [
-    { name: "Home", href: "/", icon: Home },
-    { name: "LinkedIn", href: "https://www.linkedin.com/in/leela-sai-vardhan-dhavala-284024339/", icon: Linkedin, external: true },
-    { name: "Resume", href: "/resume.pdf", icon: FileText, external: true },
-];
-
 export function Sidebar() {
     const pathname = usePathname();
-    const [isCollapsed, setIsCollapsed] = useState(false);
+    const { isCollapsed, setIsCollapsed } = useSidebar();
 
     return (
         <>
             {/* Collapsed Sidebar - Shows only hamburger */}
             {isCollapsed && (
-                <aside className="fixed left-0 top-0 z-40 h-screen w-16 border-r border-border bg-card">
+                <aside className="fixed left-0 top-0 z-40 h-screen w-16 border-r border-border bg-card transition-all duration-300">
                     <div className="flex h-full flex-col items-center p-4">
                         <Button
                             variant="ghost"
@@ -47,66 +41,31 @@ export function Sidebar() {
 
             {/* Expanded Sidebar */}
             {!isCollapsed && (
-                <aside className="fixed left-0 top-0 z-40 h-screen w-64 border-r border-border bg-card">
+                <aside className="fixed left-0 top-0 z-40 h-screen w-64 border-r border-border bg-card transition-all duration-300">
                     <div className="flex h-full flex-col gap-2 p-4">
-                        {/* Logo/Brand with Collapse Button */}
-                        <div className="mb-4 flex items-center justify-between px-3 py-2">
-                            <div>
-                                <h2 className="text-lg font-bold">Portfolio</h2>
-                            </div>
+                        {/* Brand Name with Arrow - Clickable to Home */}
+                        <div className="mb-4 border-b border-border pb-4">
+                            <Link
+                                href="/"
+                                className="flex items-center gap-2 px-3 py-2 hover:opacity-80 transition-opacity"
+                            >
+                                <ArrowUpRight className="h-4 w-4 text-muted-foreground" />
+                                <h2 className="text-lg font-bold">Vardhan</h2>
+                            </Link>
+                        </div>
+
+                        {/* Sections Label with Collapse Button */}
+                        <div className="flex items-center justify-between px-3 py-2">
+                            <p className="text-sm text-muted-foreground">Sections</p>
                             <Button
                                 variant="ghost"
                                 size="icon"
                                 onClick={() => setIsCollapsed(true)}
                                 aria-label="Collapse sidebar"
-                                className="h-8 w-8"
+                                className="h-6 w-6"
                             >
                                 <X className="h-4 w-4" />
                             </Button>
-                        </div>
-
-                        {/* Quick Links */}
-                        <div className="space-y-1 border-b border-border pb-4">
-                            {quickLinks.map((link) => {
-                                const Icon = link.icon;
-                                const isActive = !link.external && pathname === link.href;
-
-                                if (link.external) {
-                                    return (
-                                        <a
-                                            key={link.name}
-                                            href={link.href}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            className="flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium text-muted-foreground transition-smooth hover:bg-accent hover:text-accent-foreground"
-                                        >
-                                            <Icon className="h-4 w-4" />
-                                            {link.name}
-                                        </a>
-                                    );
-                                }
-
-                                return (
-                                    <Link
-                                        key={link.name}
-                                        href={link.href}
-                                        className={cn(
-                                            "flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-smooth",
-                                            isActive
-                                                ? "bg-primary text-primary-foreground"
-                                                : "text-muted-foreground hover:bg-accent hover:text-accent-foreground"
-                                        )}
-                                    >
-                                        <Icon className="h-4 w-4" />
-                                        {link.name}
-                                    </Link>
-                                );
-                            })}
-                        </div>
-
-                        {/* Sections Label */}
-                        <div className="px-3 py-2">
-                            <p className="text-sm text-muted-foreground">Sections</p>
                         </div>
 
                         {/* Navigation Links */}

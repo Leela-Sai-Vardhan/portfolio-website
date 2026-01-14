@@ -129,3 +129,19 @@
     font-feature-settings: "rlig" 1, "calt" 1;
   }
 }
+
+@layer utilities {
+  /* Sidebar state utilities */
+  .sidebar-expanded {
+    --sidebar-width: 16rem; /* 256px / 64 */
+  }
+
+  .sidebar-collapsed {
+    --sidebar-width: 4rem; /* 64px / 16 */
+  }
+
+  /* Smooth transition for main content */
+  .transition-smooth {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+}
