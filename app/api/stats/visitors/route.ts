@@ -1,21 +1,15 @@
-import { NextRequest, NextResponse } from 'next/server';
-
-// This is a simple in-memory counter for demonstration
-// In production with Vercel KV, you would use:
-// import { kv } from '@vercel/kv';
-
-let visitCount = 0;
-const visitors = new Set<string>();
+import { kv } from '@vercel/kv';
+import { NextRequest } from 'next/server';
 
 export async function GET() {
     try {
-        // In production with Vercel KV:
-        // const count = await kv.get('visitor_count') || 0;
+        // Get current visitor count
+        const count = await kv.get<number>('visitor_count') || 0;
 
-        return NextResponse.json({ count: visitCount });
+        return Response.json({ count });
     } catch (error) {
         console.error('Error fetching visitor count:', error);
-        return NextResponse.json({ error: 'Failed to fetch count' }, { status: 500 });
+        return Response.json({ count: 0 }, { status: 500 });
     }
 }
 
@@ -24,22 +18,24 @@ export async function POST(request: NextRequest) {
         const { visitorId } = await request.json();
 
         if (!visitorId) {
-            return NextResponse.json({ error: 'Visitor ID required' }, { status: 400 });
+            return Response.json({ error: 'Visitor ID required' }, { status: 400 });
         }
 
         // Check if this visitor has been counted before
-        if (!visitors.has(visitorId)) {
-            visitors.add(visitorId);
-            visitCount++;
+        const exists = await kv.sismember('unique_visitors', visitorId);
 
-            // In production with Vercel KV:
-            // await kv.incr('visitor_count');
-            // await kv.sadd('visitors', visitorId);
+        if (!exists) {
+            // New visitor - add to set and increment counter
+            await kv.sadd('unique_visitors', visitorId);
+            await kv.incr('visitor_count');
         }
 
-        return NextResponse.json({ count: visitCount });
+        // Get updated count
+        const count = await kv.get<number>('visitor_count') || 0;
+
+        return Response.json({ count });
     } catch (error) {
-        console.error('Error incrementing visitor count:', error);
-        return NextResponse.json({ error: 'Failed to increment count' }, { status: 500 });
+        console.error('Error tracking visitor:', error);
+        return Response.json({ error: 'Failed to track visitor' }, { status: 500 });
     }
 }
