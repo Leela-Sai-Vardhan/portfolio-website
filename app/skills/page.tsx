@@ -1,44 +1,17 @@
-import Link from "next/link";
+"use client";
+
+import Link from "next/link"; // Added missing import
 import { ArrowRight, ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
-
-const skills = {
-    frontend: [
-        { name: "HTML", level: "Advanced" },
-        { name: "CSS", level: "Advanced" },
-        { name: "JavaScript", level: "Advanced" },
-        { name: "TypeScript", level: "Intermediate" },
-        { name: "React", level: "Advanced" },
-        { name: "Next.js", level: "Intermediate" },
-        { name: "Tailwind CSS", level: "Advanced" },
-    ],
-    backend: [
-        { name: "Node.js", level: "Intermediate" },
-        { name: "Express.js", level: "Intermediate" },
-        { name: "MongoDB", level: "Beginner" },
-        { name: "PostgreSQL", level: "Beginner" },
-        { name: "REST APIs", level: "Intermediate" },
-    ],
-    tools: [
-        { name: "Git", level: "Advanced" },
-        { name: "GitHub", level: "Advanced" },
-        { name: "VS Code", level: "Advanced" },
-        { name: "Figma", level: "Intermediate" },
-        { name: "Docker", level: "Beginner" },
-        { name: "Vercel", level: "Intermediate" },
-    ],
-    learning: [
-        { name: "System Design", level: "Learning" },
-        { name: "GraphQL", level: "Learning" },
-        { name: "AWS", level: "Learning" },
-        { name: "Redis", level: "Learning" },
-    ],
-};
+import { TechBadge } from "@/components/tech-badge";
+import { useSidebar } from "@/components/sidebar-context";
 
 export default function SkillsPage() {
+    const { isCollapsed } = useSidebar();
+
     return (
-        <div className="container mx-auto max-w-5xl px-6 py-16">
-            <div className="space-y-8">
+        <div className="container mx-auto px-6 py-16 transition-all duration-300">
+            <div className="space-y-8 max-w-6xl mx-auto">
                 {/* Page Header */}
                 <div className="space-y-4">
                     <h1 className="text-4xl font-bold">Skills & Tools</h1>
@@ -57,75 +30,54 @@ export default function SkillsPage() {
                 </p>
 
                 {/* Skills Sections */}
-                <div className="space-y-8">
+                <div className="space-y-12">
                     {/* Frontend */}
                     <div>
-                        <h3 className="mb-4 text-xl font-semibold">Frontend Development</h3>
-                        <div className="grid gap-3 sm:grid-cols-2 md:grid-cols-3">
-                            {skills.frontend.map((skill, index) => (
-                                <div
-                                    key={index}
-                                    className="flex items-center justify-between rounded-lg border border-border bg-card p-4"
-                                >
-                                    <span className="font-medium">{skill.name}</span>
-                                    <span className="text-xs text-muted-foreground">{skill.level}</span>
-                                </div>
+                        <h3 className="mb-6 text-xl font-semibold">Frontend Development</h3>
+                        <div className="flex flex-wrap gap-3">
+                            {["HTML", "CSS", "JavaScript", "TypeScript", "Tailwind CSS", "shadcn/ui", "Material UI", "Framer Motion", "React", "Next.js"].map((tech) => (
+                                <TechBadge key={tech} name={tech} />
                             ))}
                         </div>
                     </div>
 
                     {/* Backend */}
                     <div>
-                        <h3 className="mb-4 text-xl font-semibold">Backend Development</h3>
-                        <div className="grid gap-3 sm:grid-cols-2 md:grid-cols-3">
-                            {skills.backend.map((skill, index) => (
-                                <div
-                                    key={index}
-                                    className="flex items-center justify-between rounded-lg border border-border bg-card p-4"
-                                >
-                                    <span className="font-medium">{skill.name}</span>
-                                    <span className="text-xs text-muted-foreground">{skill.level}</span>
-                                </div>
+                        <h3 className="mb-6 text-xl font-semibold">Backend Development</h3>
+                        <div className="flex flex-wrap gap-3">
+                            {["Node.js", "Express.js", "MongoDB", "PostgreSQL", "Supabase", "Redis", "REST APIs", "GraphQL"].map((tech) => (
+                                <TechBadge key={tech} name={tech} />
                             ))}
                         </div>
                     </div>
 
-                    {/* Tools & Technologies */}
+                    {/* Tools & DevOps */}
                     <div>
-                        <h3 className="mb-4 text-xl font-semibold">Tools & Technologies</h3>
-                        <div className="grid gap-3 sm:grid-cols-2 md:grid-cols-3">
-                            {skills.tools.map((skill, index) => (
-                                <div
-                                    key={index}
-                                    className="flex items-center justify-between rounded-lg border border-border bg-card p-4"
-                                >
-                                    <span className="font-medium">{skill.name}</span>
-                                    <span className="text-xs text-muted-foreground">{skill.level}</span>
-                                </div>
+                        <h3 className="mb-6 text-xl font-semibold">Tools & DevOps</h3>
+                        <div className="flex flex-wrap gap-3">
+                            {["Git", "GitHub", "VS Code", "Postman", "npm", "Docker", "Vercel", "AWS"].map((tech) => (
+                                <TechBadge key={tech} name={tech} />
+                            ))}
+                            {/* Figma was listed in previous version, adding it back if relevant, or "System Design" */}
+                            <TechBadge name="Figma" />
+                        </div>
+                    </div>
+
+                    {/* Additional/Learning */}
+                    <div>
+                        <h3 className="mb-6 text-xl font-semibold">Currently Learning / Concepts</h3>
+                        <div className="flex flex-wrap gap-3">
+                            {["System Design"].map((tech) => (
+                                <TechBadge key={tech} name={tech} />
                             ))}
                         </div>
                     </div>
 
-                    {/* Currently Learning */}
-                    <div>
-                        <h3 className="mb-4 text-xl font-semibold">Currently Learning</h3>
-                        <div className="grid gap-3 sm:grid-cols-2 md:grid-cols-3">
-                            {skills.learning.map((skill, index) => (
-                                <div
-                                    key={index}
-                                    className="flex items-center justify-between rounded-lg border border-primary/50 bg-primary/5 p-4"
-                                >
-                                    <span className="font-medium">{skill.name}</span>
-                                    <span className="text-xs text-primary">{skill.level}</span>
-                                </div>
-                            ))}
-                        </div>
-                    </div>
                 </div>
             </div>
 
             {/* Navigation */}
-            <div className="mt-16 flex justify-between border-t border-border pt-8">
+            <div className="mt-16 flex justify-between border-t border-border pt-8 max-w-6xl mx-auto">
                 <Button variant="ghost" asChild>
                     <Link href="/projects" className="gap-2">
                         <ArrowLeft className="h-4 w-4" />
