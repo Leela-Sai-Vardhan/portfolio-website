@@ -7,7 +7,7 @@ import { Sidebar } from "@/components/sidebar";
 import { Navbar } from "@/components/navbar";
 
 export const metadata: Metadata = {
-  title: "Your Name - Full-Stack Developer",
+  title: "Leela Sai Vardhan Dhavala - Full-Stack Developer",
   description: "Portfolio website showcasing projects, skills, and experience. Open to full-stack internship opportunities.",
 };
 
@@ -29,8 +29,9 @@ export default function RootLayout({
             {/* Sidebar */}
             <Sidebar />
 
-            {/* Main Content Area */}
-            <div className="flex-1 pl-64">
+            {/* Main Content Area - responsive to sidebar */}
+            <div className="flex-1 transition-all duration-300 pl-64">
+              {/* Note: Sidebar collapse handled via CSS in sidebar component */}
               {/* Navbar */}
               <Navbar />
 

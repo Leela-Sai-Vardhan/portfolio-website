@@ -8,7 +8,7 @@ export default function AboutPage() {
             <div className="space-y-8">
                 {/* Page Header */}
                 <div className="space-y-4">
-                    <h1 className="text-4xl font-bold">About Aditya</h1>
+                    <h1 className="text-4xl font-bold">About Me</h1>
                     <p className="text-xl text-muted-foreground">
                         More than just a title—let's dive deeper!
                     </p>
@@ -45,7 +45,7 @@ export default function AboutPage() {
                         <h3 className="mb-4 text-xl font-semibold">Education</h3>
                         <div className="space-y-2">
                             <p className="font-semibold">Bachelor of Technology in Computer Science</p>
-                            <p className="text-muted-foreground">Your University Name</p>
+                            <p className="text-muted-foreground">VRSEC</p>
                             <p className="text-sm text-muted-foreground">Expected Graduation: 2026</p>
                             <p className="text-sm text-muted-foreground">CGPA: 8.5/10</p>
                         </div>

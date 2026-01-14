@@ -46,7 +46,7 @@ export function Navbar() {
                     {/* GitHub Link */}
                     <Button variant="ghost" size="icon" className="h-8 w-8" asChild>
                         <a
-                            href="https://github.com/yourusername"
+                            href="https://github.com/Leela-Sai-Vardhan"
                             target="_blank"
                             rel="noopener noreferrer"
                             aria-label="GitHub"

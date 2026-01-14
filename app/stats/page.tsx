@@ -1,8 +1,79 @@
+"use client";
+
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { ArrowLeft, Eye, Heart, GitBranch, Users, MapPin, Building } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 export default function StatsPage() {
+    const [visitorCount, setVisitorCount] = useState(0);
+    const [loveCount, setLoveCount] = useState(0);
+    const [hasLoved, setHasLoved] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
+
+    useEffect(() => {
+        // Generate or retrieve visitor ID
+        let visitorId = localStorage.getItem('visitorId');
+        if (!visitorId) {
+            visitorId = `visitor_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+            localStorage.setItem('visitorId', visitorId);
+        }
+
+        // Track visitor
+        fetch('/api/stats/visitors', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ visitorId }),
+        })
+            .then(res => res.json())
+            .then(data => {
+                setVisitorCount(data.count);
+                setIsLoading(false);
+            })
+            .catch(err => {
+                console.error('Error tracking visitor:', err);
+                setIsLoading(false);
+            });
+
+        // Fetch love count
+        fetch('/api/stats/love')
+            .then(res => res.json())
+            .then(data => setLoveCount(data.count))
+            .catch(err => console.error('Error fetching love count:', err));
+
+        // Check if user has already loved
+        const loved = localStorage.getItem('hasLovedPortfolio') === 'true';
+        setHasLoved(loved);
+    }, []);
+
+    const handleLove = async () => {
+        if (hasLoved) return;
+
+        let userId = localStorage.getItem('userId');
+        if (!userId) {
+            userId = `user_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+            localStorage.setItem('userId', userId);
+        }
+
+        try {
+            const res = await fetch('/api/stats/love', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ userId }),
+            });
+
+            const data = await res.json();
+
+            if (!data.alreadyLoved) {
+                setLoveCount(data.count);
+                setHasLoved(true);
+                localStorage.setItem('hasLovedPortfolio', 'true');
+            }
+        } catch (err) {
+            console.error('Error loving portfolio:', err);
+        }
+    };
+
     return (
         <div className="container mx-auto max-w-5xl px-6 py-16">
             <div className="space-y-12">
@@ -31,7 +102,9 @@ export default function StatsPage() {
                                     <Eye className="h-8 w-8 text-primary" />
                                 </div>
                             </div>
-                            <div className="text-5xl font-bold text-primary">1,234</div>
+                            <div className="text-5xl font-bold text-primary">
+                                {isLoading ? "..." : visitorCount.toLocaleString()}
+                            </div>
                             <p className="mt-2 text-sm text-muted-foreground">
                                 Unique page visits since Jan 2026
                             </p>
@@ -44,13 +117,21 @@ export default function StatsPage() {
                                     <Heart className="h-8 w-8 text-pink-500" />
                                 </div>
                             </div>
-                            <div className="text-5xl font-bold text-pink-500">42</div>
+                            <div className="text-5xl font-bold text-pink-500">
+                                {loveCount.toLocaleString()}
+                            </div>
                             <p className="mt-2 text-sm text-muted-foreground">
                                 People who loved this portfolio
                             </p>
-                            <Button className="mt-4 gap-2 rounded-full" size="lg">
-                                <Heart className="h-4 w-4" />
-                                Love this portfolio
+                            <Button
+                                className="mt-4 gap-2 rounded-full"
+                                size="lg"
+                                onClick={handleLove}
+                                disabled={hasLoved}
+                                variant={hasLoved ? "outline" : "default"}
+                            >
+                                <Heart className={`h-4 w-4 ${hasLoved ? 'fill-pink-500 text-pink-500' : ''}`} />
+                                {hasLoved ? 'You loved this!' : 'Love this portfolio'}
                             </Button>
                         </div>
                     </div>
@@ -154,7 +235,7 @@ export default function StatsPage() {
                                 </div>
                                 <div>
                                     <p className="text-sm text-muted-foreground">Location</p>
-                                    <p className="text-xl font-semibold">Your City</p>
+                                    <p className="text-xl font-semibold">Kanuru Vijayawada</p>
                                 </div>
                             </div>
                         </div>

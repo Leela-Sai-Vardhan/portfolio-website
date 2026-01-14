@@ -25,7 +25,7 @@ export default function ContactPage() {
                 <div className="grid gap-4 sm:grid-cols-2">
                     {/* Email */}
                     <a
-                        href="mailto:your.email@example.com"
+                        href="mailto:leelasaivardhandhavala@gmail.com"
                         className="group flex items-start gap-4 rounded-lg border border-border bg-card p-6 transition-all hover:border-primary/50 hover:shadow-lg"
                     >
                         <div className="rounded-lg bg-primary/10 p-3">
@@ -33,13 +33,13 @@ export default function ContactPage() {
                         </div>
                         <div className="space-y-1">
                             <p className="font-semibold">Email</p>
-                            <p className="text-sm text-muted-foreground">your.email@example.com</p>
+                            <p className="text-sm text-muted-foreground">leelasaivardhandhavala@gmail.com</p>
                         </div>
                     </a>
 
                     {/* GitHub */}
                     <a
-                        href="https://github.com/yourusername"
+                        href="https://github.com/Leela-Sai-Vardhan"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="group flex items-start gap-4 rounded-lg border border-border bg-card p-6 transition-all hover:border-primary/50 hover:shadow-lg"
@@ -49,13 +49,13 @@ export default function ContactPage() {
                         </div>
                         <div className="space-y-1">
                             <p className="font-semibold">GitHub</p>
-                            <p className="text-sm text-muted-foreground">@yourusername</p>
+                            <p className="text-sm text-muted-foreground">@Leela-Sai-Vardhan</p>
                         </div>
                     </a>
 
                     {/* LinkedIn */}
                     <a
-                        href="https://linkedin.com/in/yourusername"
+                        href="https://www.linkedin.com/in/leela-sai-vardhan-dhavala-284024339/"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="group flex items-start gap-4 rounded-lg border border-border bg-card p-6 transition-all hover:border-primary/50 hover:shadow-lg"
@@ -65,13 +65,13 @@ export default function ContactPage() {
                         </div>
                         <div className="space-y-1">
                             <p className="font-semibold">LinkedIn</p>
-                            <p className="text-sm text-muted-foreground">@yourusername</p>
+                            <p className="text-sm text-muted-foreground">Leela Sai Vardhan Dhavala</p>
                         </div>
                     </a>
 
                     {/* Twitter */}
                     <a
-                        href="https://twitter.com/yourusername"
+                        href="https://twitter.com/Leela-Sai-Vardhan"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="group flex items-start gap-4 rounded-lg border border-border bg-card p-6 transition-all hover:border-primary/50 hover:shadow-lg"
@@ -91,7 +91,7 @@ export default function ContactPage() {
                     <MapPin className="h-5 w-5 text-muted-foreground" />
                     <div>
                         <p className="font-semibold">Location</p>
-                        <p className="text-sm text-muted-foreground">Your City, Your Country</p>
+                        <p className="text-sm text-muted-foreground">Kanuru Vijayawada</p>
                     </div>
                 </div>
 
@@ -103,7 +103,7 @@ export default function ContactPage() {
                         or role, let's talk!
                     </p>
                     <Button asChild size="lg">
-                        <a href="mailto:your.email@example.com">Get in Touch</a>
+                        <a href="mailto:leelasaivardhandhavala@gmail.com">Get in Touch</a>
                     </Button>
                 </div>
             </div>

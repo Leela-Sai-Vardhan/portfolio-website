@@ -11,7 +11,7 @@ export default function Home() {
           <h1 className="text-5xl font-bold tracking-tight lg:text-6xl">
             Hi, I'm{" "}
             <span className="bg-gradient-to-r from-primary to-purple-400 bg-clip-text text-transparent">
-              Your Name
+              Leela Sai Vardhan Dhavala
             </span>
           </h1>
           <h2 className="text-2xl font-semibold text-muted-foreground lg:text-3xl">
@@ -63,7 +63,7 @@ export default function Home() {
         <div className="flex gap-4 pt-4">
           <Button variant="ghost" size="icon" asChild>
             <a
-              href="https://github.com/yourusername"
+              href="https://github.com/Leela-Sai-Vardhan"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="GitHub"
@@ -73,7 +73,7 @@ export default function Home() {
           </Button>
           <Button variant="ghost" size="icon" asChild>
             <a
-              href="https://linkedin.com/in/yourusername"
+              href="https://www.linkedin.com/in/leela-sai-vardhan-dhavala-284024339/"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="LinkedIn"
@@ -83,7 +83,7 @@ export default function Home() {
           </Button>
           <Button variant="ghost" size="icon" asChild>
             <a
-              href="mailto:your.email@example.com"
+              href="mailto:leelasaivardhandhavala@gmail.com"
               aria-label="Email"
             >
               <Mail className="h-5 w-5" />
