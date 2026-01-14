@@ -2,8 +2,11 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { Search, X } from "lucide-react";
 import { ArrowRight, ArrowLeft, Github, ExternalLink, Clock } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Badge } from "@/components/ui/badge";
 
 const projects = [
     {
@@ -49,10 +52,52 @@ const projects = [
 
 export default function ProjectsPage() {
     const [visitedCards, setVisitedCards] = useState<Set<number>>(new Set());
+    const [searchQuery, setSearchQuery] = useState("");
+    const [selectedTech, setSelectedTech] = useState<string[]>([]);
+    const [selectedStatus, setSelectedStatus] = useState<string[]>([]);
 
     const handleCardHover = (index: number) => {
         setVisitedCards(prev => new Set(prev).add(index));
     };
+
+    // Get all unique tech stacks
+    const allTech = Array.from(new Set(projects.flatMap(p => p.tech)));
+    const allStatuses = Array.from(new Set(projects.map(p => p.status)));
+
+    // Filter projects
+    const filteredProjects = projects.filter(project => {
+        const matchesSearch = searchQuery === "" ||
+            project.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            project.description.toLowerCase().includes(searchQuery.toLowerCase());
+
+        const matchesTech = selectedTech.length === 0 ||
+            selectedTech.some(tech => project.tech.includes(tech));
+
+        const matchesStatus = selectedStatus.length === 0 ||
+            selectedStatus.includes(project.status);
+
+        return matchesSearch && matchesTech && matchesStatus;
+    });
+
+    const toggleTech = (tech: string) => {
+        setSelectedTech(prev =>
+            prev.includes(tech) ? prev.filter(t => t !== tech) : [...prev, tech]
+        );
+    };
+
+    const toggleStatus = (status: string) => {
+        setSelectedStatus(prev =>
+            prev.includes(status) ? prev.filter(s => s !== status) : [...prev, status]
+        );
+    };
+
+    const clearFilters = () => {
+        setSearchQuery("");
+        setSelectedTech([]);
+        setSelectedStatus([]);
+    };
+
+    const hasActiveFilters = searchQuery !== "" || selectedTech.length > 0 || selectedStatus.length > 0;
 
     return (
         <div className="container mx-auto max-w-5xl px-6 py-16">
@@ -65,100 +110,168 @@ export default function ProjectsPage() {
                     </p>
                 </div>
 
+                {/* Search and Filters */}
+                <div className="space-y-4">
+                    {/* Search Bar */}
+                    <div className="relative">
+                        <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+                        <Input
+                            type="text"
+                            placeholder="Search projects..."
+                            value={searchQuery}
+                            onChange={(e) => setSearchQuery(e.target.value)}
+                            className="pl-10"
+                        />
+                    </div>
+
+                    {/* Filter Chips */}
+                    <div className="flex flex-wrap gap-2">
+                        <span className="text-sm text-muted-foreground">Tech Stack:</span>
+                        {allTech.map(tech => (
+                            <Badge
+                                key={tech}
+                                variant={selectedTech.includes(tech) ? "default" : "outline"}
+                                className="cursor-pointer"
+                                onClick={() => toggleTech(tech)}
+                            >
+                                {tech}
+                            </Badge>
+                        ))}
+                    </div>
+
+                    <div className="flex flex-wrap gap-2">
+                        <span className="text-sm text-muted-foreground">Status:</span>
+                        {allStatuses.map(status => (
+                            <Badge
+                                key={status}
+                                variant={selectedStatus.includes(status) ? "default" : "outline"}
+                                className="cursor-pointer"
+                                onClick={() => toggleStatus(status)}
+                            >
+                                {status}
+                            </Badge>
+                        ))}
+                    </div>
+
+                    {/* Clear Filters */}
+                    {hasActiveFilters && (
+                        <Button
+                            variant="ghost"
+                            size="sm"
+                            onClick={clearFilters}
+                            className="gap-2"
+                        >
+                            <X className="h-4 w-4" />
+                            Clear Filters
+                        </Button>
+                    )}
+
+                    {/* Results Count */}
+                    <p className="text-sm text-muted-foreground">
+                        Showing {filteredProjects.length} of {projects.length} projects
+                    </p>
+                </div>
+
                 {/* Projects Grid */}
                 <div className="grid gap-6 md:grid-cols-2">
-                    {projects.map((project, index) => (
-                        <div
-                            key={index}
-                            onMouseEnter={() => handleCardHover(index)}
-                            className={`group relative flex flex-col gap-4 rounded-lg glass-card glass-card-hover p-6 ${visitedCards.has(index)
+                    {filteredProjects.length === 0 ? (
+                        <div className="col-span-2 text-center py-12">
+                            <p className="text-muted-foreground">No projects found matching your filters.</p>
+                        </div>
+                    ) : (
+                        filteredProjects.map((project, index) => (
+                            <div
+                                key={index}
+                                onMouseEnter={() => handleCardHover(index)}
+                                className={`group relative flex flex-col gap-4 rounded-lg glass-card glass-card-hover p-6 ${visitedCards.has(index)
                                     ? ''
                                     : index % 2 === 0
                                         ? 'card-tilt-left'
                                         : 'card-tilt-right'
-                                }`}
-                        >
-                            {/* Status Badge */}
-                            <div className="flex items-center justify-between">
-                                <div className="flex items-center gap-2">
-                                    {project.status === "In Progress" && (
-                                        <span className="flex items-center gap-1 rounded-full bg-primary/10 px-3 py-1 text-xs font-medium text-primary">
-                                            <Clock className="h-3 w-3" />
-                                            In Progress
+                                    }`}
+                            >
+                                {/* Status Badge */}
+                                <div className="flex items-center justify-between">
+                                    <div className="flex items-center gap-2">
+                                        {project.status === "In Progress" && (
+                                            <span className="flex items-center gap-1 rounded-full bg-primary/10 px-3 py-1 text-xs font-medium text-primary">
+                                                <Clock className="h-3 w-3" />
+                                                In Progress
+                                            </span>
+                                        )}
+                                        {project.status === "Planned" && (
+                                            <span className="rounded-full bg-muted px-3 py-1 text-xs font-medium text-muted-foreground">
+                                                Planned
+                                            </span>
+                                        )}
+                                        {project.status === "Completed" && (
+                                            <span className="rounded-full bg-green-500/10 px-3 py-1 text-xs font-medium text-green-500">
+                                                Completed
+                                            </span>
+                                        )}
+                                    </div>
+                                </div>
+
+                                {/* Title */}
+                                <h3 className="text-xl font-semibold">{project.title}</h3>
+
+                                {/* Description */}
+                                <p className="text-muted-foreground">{project.description}</p>
+
+                                {/* Tech Stack */}
+                                <div className="flex flex-wrap gap-2">
+                                    {project.tech.map((tech, i) => (
+                                        <span
+                                            key={i}
+                                            className="rounded-md bg-secondary px-2 py-1 text-xs font-medium"
+                                        >
+                                            {tech}
                                         </span>
+                                    ))}
+                                </div>
+
+                                {/* Key Learnings */}
+                                <div className="space-y-2">
+                                    <p className="text-sm font-semibold">Key Learnings:</p>
+                                    <ul className="list-inside list-disc space-y-1 text-sm text-muted-foreground">
+                                        {project.learnings.map((learning, i) => (
+                                            <li key={i}>{learning}</li>
+                                        ))}
+                                    </ul>
+                                </div>
+
+                                {/* Links */}
+                                <div className="flex gap-2 pt-2">
+                                    {project.github && (
+                                        <Button variant="outline" size="sm" asChild>
+                                            <a
+                                                href={project.github}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="gap-2"
+                                            >
+                                                <Github className="h-4 w-4" />
+                                                GitHub
+                                            </a>
+                                        </Button>
                                     )}
-                                    {project.status === "Planned" && (
-                                        <span className="rounded-full bg-muted px-3 py-1 text-xs font-medium text-muted-foreground">
-                                            Planned
-                                        </span>
-                                    )}
-                                    {project.status === "Completed" && (
-                                        <span className="rounded-full bg-green-500/10 px-3 py-1 text-xs font-medium text-green-500">
-                                            Completed
-                                        </span>
+                                    {project.demo && (
+                                        <Button variant="outline" size="sm" asChild>
+                                            <a
+                                                href={project.demo}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="gap-2"
+                                            >
+                                                <ExternalLink className="h-4 w-4" />
+                                                Live Demo
+                                            </a>
+                                        </Button>
                                     )}
                                 </div>
                             </div>
-
-                            {/* Title */}
-                            <h3 className="text-xl font-semibold">{project.title}</h3>
-
-                            {/* Description */}
-                            <p className="text-muted-foreground">{project.description}</p>
-
-                            {/* Tech Stack */}
-                            <div className="flex flex-wrap gap-2">
-                                {project.tech.map((tech, i) => (
-                                    <span
-                                        key={i}
-                                        className="rounded-md bg-secondary px-2 py-1 text-xs font-medium"
-                                    >
-                                        {tech}
-                                    </span>
-                                ))}
-                            </div>
-
-                            {/* Key Learnings */}
-                            <div className="space-y-2">
-                                <p className="text-sm font-semibold">Key Learnings:</p>
-                                <ul className="list-inside list-disc space-y-1 text-sm text-muted-foreground">
-                                    {project.learnings.map((learning, i) => (
-                                        <li key={i}>{learning}</li>
-                                    ))}
-                                </ul>
-                            </div>
-
-                            {/* Links */}
-                            <div className="flex gap-2 pt-2">
-                                {project.github && (
-                                    <Button variant="outline" size="sm" asChild>
-                                        <a
-                                            href={project.github}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            className="gap-2"
-                                        >
-                                            <Github className="h-4 w-4" />
-                                            GitHub
-                                        </a>
-                                    </Button>
-                                )}
-                                {project.demo && (
-                                    <Button variant="outline" size="sm" asChild>
-                                        <a
-                                            href={project.demo}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            className="gap-2"
-                                        >
-                                            <ExternalLink className="h-4 w-4" />
-                                            Live Demo
-                                        </a>
-                                    </Button>
-                                )}
-                            </div>
-                        </div>
-                    ))}
+                        ))
+                    )}
                 </div>
             </div>
 

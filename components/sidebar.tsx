@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Home, User, Briefcase, Code, Award, Mail, Menu, X, ArrowUpRight } from "lucide-react";
+import { Home, User, Briefcase, Code, Award, Mail, Menu, X, ArrowUpRight, Monitor } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { useSidebar } from "@/components/sidebar-context";
@@ -15,6 +15,7 @@ const navigation = [
     { name: "Skills & Tools", href: "/skills", icon: Code },
     { name: "Experience", href: "/experience", icon: Award },
     { name: "Contact", href: "/contact", icon: Mail },
+    { name: "Studio", href: "/studio", icon: Monitor },
     { name: "Stats", href: "/stats", icon: Award },
 ];
 
