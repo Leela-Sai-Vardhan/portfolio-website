@@ -10,6 +10,9 @@ import {
     Award,
     Mail,
     Search,
+    Moon,
+    Sun,
+    Focus,
 } from "lucide-react";
 import {
     CommandDialog,
@@ -20,6 +23,8 @@ import {
     CommandList,
 } from "@/components/ui/command";
 import { useSidebar } from "@/components/sidebar-context";
+import { useFocusMode } from "@/components/focus-mode-context";
+import { useTheme } from "next-themes";
 
 const navigation = [
     { name: "Introduction", href: "/", icon: Home },
@@ -35,6 +40,8 @@ export function CommandPalette() {
     const router = useRouter();
     const [open, setOpen] = React.useState(false);
     const { isCollapsed } = useSidebar();
+    const { toggleFocusMode, isFocusMode } = useFocusMode();
+    const { theme, setTheme } = useTheme();
 
     React.useEffect(() => {
         const down = (e: KeyboardEvent) => {
@@ -72,10 +79,38 @@ export function CommandPalette() {
             {/* Command Dialog with dynamic positioning */}
             <div className={`transition-all duration-300 ${isCollapsed ? 'ml-0' : 'ml-32'}`}>
                 <CommandDialog open={open} onOpenChange={setOpen}>
-                    <CommandInput placeholder="Search sections..." />
+                    <CommandInput placeholder="Type a command or search..." />
                     <CommandList>
                         <CommandEmpty>No results found.</CommandEmpty>
-                        <CommandGroup heading="Sections">
+
+                        {/* Quick Actions */}
+                        <CommandGroup heading="Quick Actions">
+                            <CommandItem
+                                onSelect={() => {
+                                    runCommand(() => setTheme(theme === 'dark' ? 'light' : 'dark'));
+                                }}
+                            >
+                                {theme === 'dark' ? (
+                                    <Sun className="mr-2 h-4 w-4" />
+                                ) : (
+                                    <Moon className="mr-2 h-4 w-4" />
+                                )}
+                                <span>Toggle {theme === 'dark' ? 'Light' : 'Dark'} Mode</span>
+                                <kbd className="ml-auto text-xs text-muted-foreground">D</kbd>
+                            </CommandItem>
+                            <CommandItem
+                                onSelect={() => {
+                                    runCommand(() => toggleFocusMode());
+                                }}
+                            >
+                                <Focus className="mr-2 h-4 w-4" />
+                                <span>{isFocusMode ? 'Exit' : 'Enter'} Focus Mode</span>
+                                <kbd className="ml-auto text-xs text-muted-foreground">F</kbd>
+                            </CommandItem>
+                        </CommandGroup>
+
+                        {/* Navigation */}
+                        <CommandGroup heading="Navigation">
                             {navigation.map((item) => {
                                 const Icon = item.icon;
                                 return (
@@ -91,10 +126,12 @@ export function CommandPalette() {
                                 );
                             })}
                         </CommandGroup>
+
+                        {/* External Links */}
                         <CommandGroup heading="Links">
                             <CommandItem
                                 onSelect={() => {
-                                    runCommand(() => window.open("https://github.com/yourusername", "_blank"));
+                                    runCommand(() => window.open("https://github.com/Leela-Sai-Vardhan", "_blank"));
                                 }}
                             >
                                 <span className="mr-2">🔗</span>

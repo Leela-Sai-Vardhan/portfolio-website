@@ -5,9 +5,14 @@ import { useTheme } from "next-themes";
 import { Button } from "@/components/ui/button";
 import { CommandPalette } from "@/components/command-palette";
 import { LiveClock } from "@/components/live-clock";
+import { useFocusMode } from "@/components/focus-mode-context";
 
 export function Navbar() {
     const { theme, setTheme } = useTheme();
+    const { isFocusMode } = useFocusMode();
+
+    // Hide navbar in focus mode
+    if (isFocusMode) return null;
 
     return (
         <header className="fixed left-64 right-0 top-0 z-30 border-b border-border/40 bg-background/60 backdrop-blur-md supports-[backdrop-filter]:bg-background/60">

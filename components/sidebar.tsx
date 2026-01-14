@@ -6,6 +6,7 @@ import { Home, User, Briefcase, Code, Award, Mail, Menu, X, ArrowUpRight } from 
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { useSidebar } from "@/components/sidebar-context";
+import { useFocusMode } from "@/components/focus-mode-context";
 
 const navigation = [
     { name: "Introduction", href: "/", icon: Home },
@@ -20,6 +21,10 @@ const navigation = [
 export function Sidebar() {
     const pathname = usePathname();
     const { isCollapsed, setIsCollapsed } = useSidebar();
+    const { isFocusMode } = useFocusMode();
+
+    // Hide sidebar in focus mode
+    if (isFocusMode) return null;
 
     return (
         <>
