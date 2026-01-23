@@ -44,10 +44,10 @@ export default function AboutPage() {
                     <div className="rounded-lg border border-border bg-card p-6">
                         <h3 className="mb-4 text-xl font-semibold">Education</h3>
                         <div className="space-y-2">
-                            <p className="font-semibold">Bachelor of Technology in Computer Science</p>
+                            <p className="font-semibold">Bachelor of Technology in Electronics and Communication</p>
                             <p className="text-muted-foreground">VRSEC</p>
-                            <p className="text-sm text-muted-foreground">Expected Graduation: 2026</p>
-                            <p className="text-sm text-muted-foreground">CGPA: 8.5/10</p>
+                            <p className="text-sm text-muted-foreground">Expected Graduation: 2027</p>
+                            <p className="text-sm text-muted-foreground">CGPA: 7.69/10</p>
                         </div>
                     </div>
 
