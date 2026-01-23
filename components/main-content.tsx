@@ -10,7 +10,11 @@ export function MainContent({ children }: { children: React.ReactNode }) {
     const { isFocusMode } = useFocusMode();
 
     return (
-        <div className={`flex-1 transition-all duration-300 ${isFocusMode ? 'pl-0' : isCollapsed ? 'pl-16' : 'pl-64'
+        <div className={`flex-1 transition-all duration-300 ${isFocusMode
+                ? 'pl-0'
+                : isCollapsed
+                    ? 'pl-0 md:pl-16'
+                    : 'pl-0 md:pl-64'
             }`}>
             {/* Navbar */}
             <Navbar />

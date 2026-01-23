@@ -29,6 +29,15 @@ export function Sidebar() {
 
     return (
         <>
+            {/* Mobile Backdrop - Only visible on mobile when sidebar is expanded */}
+            {!isCollapsed && (
+                <div
+                    className="fixed inset-0 z-30 bg-black/50 md:hidden"
+                    onClick={() => setIsCollapsed(true)}
+                    aria-label="Close sidebar"
+                />
+            )}
+
             {/* Collapsed Sidebar - Shows only hamburger */}
             {isCollapsed && (
                 <aside className="fixed left-0 top-0 z-40 h-screen w-16 border-r border-border bg-card transition-all duration-300">
