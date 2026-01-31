@@ -18,26 +18,34 @@ export default function AboutPage() {
                 <div className="space-y-6 text-lg leading-relaxed">
                     <p>
                         I am a passionate <span className="font-semibold text-foreground">Software Engineer</span> with
-                        a knack for building full-stack web applications using modern technologies like{" "}
+                        expertise in both <span className="font-semibold text-foreground">full-stack web development</span> and{" "}
+                        <span className="font-semibold text-foreground">mobile app development</span>. I build modern web applications using{" "}
                         <span className="font-semibold text-foreground">Next.js</span>,{" "}
                         <span className="font-semibold text-foreground">React</span>, and{" "}
-                        <span className="font-semibold text-foreground">Tailwind CSS</span>. My journey in tech began
+                        <span className="font-semibold text-foreground">Tailwind CSS</span>, while also creating innovative mobile apps
+                        with <span className="font-semibold text-foreground">Flutter</span> and{" "}
+                        <span className="font-semibold text-foreground">Android</span>. My journey in tech began
                         with a curiosity for solving real-world problems through innovative solutions, which evolved
-                        into a love for creating user-centric digital experiences.
+                        into a love for creating user-centric digital experiences across multiple platforms.
                     </p>
 
                     <p>
                         With a strong foundation in <span className="font-semibold text-foreground">JavaScript frameworks</span>,
-                        I focus on creating scalable, efficient, and visually appealing applications. Currently, I am diving
-                        deeper into backend development with{" "}
+                        I focus on creating scalable, efficient, and visually appealing applications. I've successfully published{" "}
+                        <span className="font-semibold text-foreground">2 apps on Google Play Store</span>—{" "}
+                        <span className="font-semibold text-foreground">Earrupai</span> and{" "}
+                        <span className="font-semibold text-foreground">Trinetra</span>—demonstrating my ability to deliver
+                        production-ready mobile applications. Currently, I am diving deeper into backend development with{" "}
                         <span className="font-semibold text-foreground">Node.js</span> and{" "}
                         <span className="font-semibold text-foreground">Express</span> to expand my skill set and deliver
-                        powerful, server-side solutions.
+                        powerful, full-stack solutions.
                     </p>
 
                     <p>
                         Beyond coding, I thrive in collaborative environments and enjoy tackling challenging problems with
-                        creative solutions. I aim to contribute to impactful projects that make a difference in users' lives.
+                        creative solutions. Whether it's building responsive web interfaces or developing feature-rich mobile apps,
+                        I aim to contribute to impactful projects that make a difference in users' lives and deliver exceptional
+                        user experiences across all platforms.
                     </p>
 
                     {/* Education */}
@@ -56,6 +64,8 @@ export default function AboutPage() {
                         <h3 className="mb-4 text-xl font-semibold">Currently</h3>
                         <ul className="list-inside list-disc space-y-2 text-muted-foreground">
                             <li>Building full-stack projects with Next.js and TypeScript</li>
+                            <li>Developing mobile apps with Flutter and Dart</li>
+                            <li>Maintaining published apps on Google Play Store (Earrupai & Trinetra)</li>
                             <li>Contributing to open source projects</li>
                             <li>Participating in hackathons and coding competitions</li>
                             <li>Learning system design and scalability patterns</li>

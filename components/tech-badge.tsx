@@ -170,6 +170,46 @@ export function TechBadge({ name, className }: TechBadgeProps) {
                 <path fill="currentColor" d="M0 7.5h24v9H0z" />
                 <path fill="#fff" d="M2.25 10.25h15v4.5h-3v-3h-3v3h-9zM20.25 10.25h3v4.5h-3z" />
             </svg>
+        ),
+        Flutter: (
+            <svg viewBox="0 0 24 24" className="h-5 w-5 text-[#02569B]">
+                <path fill="currentColor" d="M14.314 0L2.3 12 6 15.7 21.684.013h-7.357zm.014 11.072L7.857 17.53l6.47 6.47H21.7l-6.46-6.468 6.46-6.46h-7.37z" />
+            </svg>
+        ),
+        Dart: (
+            <svg viewBox="0 0 24 24" className="h-5 w-5 text-[#0175C2]">
+                <path fill="currentColor" d="M4.105 4.105S9.158 1.58 11.684.316a3.079 3.079 0 0 1 1.481-.315c.766.047 1.677.788 1.677.788L24 9.948v9.789h-4.263V24H9.789l-9-9C.303 14.5 0 13.795 0 13.105c0-.319.18-.818.316-1.105l3.789-7.895zm.679.679v11.787c.002.543.021 1.024.498 1.508L10.204 23h8.533v-4.263h4.263V10.204l-4.263-4.263h-4.263l-9.79 9.79-.679-.679 9.79-9.79V.525L4.784 4.784z" />
+            </svg>
+        ),
+        Android: (
+            <svg viewBox="0 0 24 24" className="h-5 w-5 text-[#3DDC84]">
+                <path fill="currentColor" d="M17.523 15.341c-.828 0-1.5-.672-1.5-1.5s.672-1.5 1.5-1.5 1.5.672 1.5 1.5-.672 1.5-1.5 1.5zm-11.046 0c-.828 0-1.5-.672-1.5-1.5s.672-1.5 1.5-1.5 1.5.672 1.5 1.5-.672 1.5-1.5 1.5zM4.5 8.552c0-4.136 3.364-7.5 7.5-7.5s7.5 3.364 7.5 7.5V21c0 1.654-1.346 3-3 3h-9c-1.654 0-3-1.346-3-3V8.552zM12 0C7.029 0 3 4.029 3 9v12c0 2.206 1.794 4 4 4h10c2.206 0 4-1.794 4-4V9c0-4.971-4.029-9-9-9z" />
+            </svg>
+        ),
+        Firebase: (
+            <svg viewBox="0 0 24 24" className="h-5 w-5 text-[#FFCA28]">
+                <path fill="currentColor" d="M3.89 15.672L6.255.461A.542.542 0 0 1 7.27.288l2.543 4.771zm16.794 3.692l-2.25-14a.54.54 0 0 0-.919-.295L3.316 19.365l7.856 4.427a1.621 1.621 0 0 0 1.588 0zM14.3 7.147l-1.82-3.482a.542.542 0 0 0-.96 0L3.53 17.984z" />
+            </svg>
+        ),
+        "Material Design": (
+            <svg viewBox="0 0 24 24" className="h-5 w-5 text-[#757575]">
+                <path fill="currentColor" d="M12 0L1.75 6v12L12 24l10.25-6V6L12 0zm-1 3.5l7.5 4.5v9l-7.5 4.5v-18zm2 0v18l7.5-4.5v-9l-7.5-4.5z" opacity=".5" />
+                <path fill="currentColor" d="M12 0L1.75 6v12L12 24V0z" />
+            </svg>
+        ),
+        "Play Store": (
+            <svg viewBox="0 0 24 24" className="h-5 w-5 text-[#414141]">
+                <path fill="#EA4335" d="M1.6 0L13 11.4 9.6 14.8 1.6 6.8V0z" />
+                <path fill="#FBBC04" d="M1.6 24l7.9-7.9 3.4 3.4L1.6 24z" />
+                <path fill="#4285F4" d="M13 11.4L1.6 0l11.4 11.4z" />
+                <path fill="#34A853" d="M22.4 12L13 21.4 9.6 18l3.4-3.4 9.4-2.6z" />
+            </svg>
+        ),
+        "AI/ML": (
+            <svg viewBox="0 0 24 24" className="h-5 w-5 text-[#FF6F00]">
+                <path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z" />
+                <circle cx="12" cy="12" r="3" fill="currentColor" opacity=".5" />
+            </svg>
         )
     };
 

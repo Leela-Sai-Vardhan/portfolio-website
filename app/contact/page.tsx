@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { ArrowLeft, ArrowRight, Mail, Github, Linkedin, Twitter, MapPin } from "lucide-react";
+import { ArrowLeft, ArrowRight, Mail, Github, Linkedin, MapPin } from "lucide-react";
+import { SiReddit } from "react-icons/si";
 import { Button } from "@/components/ui/button";
 
 export default function ContactPage() {
@@ -55,7 +56,7 @@ export default function ContactPage() {
 
                     {/* LinkedIn */}
                     <a
-                        href="https://www.linkedin.com/in/leela-sai-vardhan-dhavala-284024339/"
+                        href="https://www.linkedin.com/in/leela-sai-vardhan-dhavala/"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="group flex items-start gap-4 rounded-lg border border-border bg-card p-6 transition-all hover:border-primary/50 hover:shadow-lg"
@@ -69,19 +70,19 @@ export default function ContactPage() {
                         </div>
                     </a>
 
-                    {/* Twitter */}
+                    {/* Reddit */}
                     <a
-                        href="https://twitter.com/Leela-Sai-Vardhan"
+                        href="https://www.reddit.com/user/Leela_sai_vardhan/"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="group flex items-start gap-4 rounded-lg border border-border bg-card p-6 transition-all hover:border-primary/50 hover:shadow-lg"
                     >
                         <div className="rounded-lg bg-primary/10 p-3">
-                            <Twitter className="h-6 w-6 text-primary" />
+                            <SiReddit className="h-6 w-6 text-primary" />
                         </div>
                         <div className="space-y-1">
-                            <p className="font-semibold">Twitter</p>
-                            <p className="text-sm text-muted-foreground">@yourusername</p>
+                            <p className="font-semibold">Reddit</p>
+                            <p className="text-sm text-muted-foreground">u/Leela_sai_vardhan</p>
                         </div>
                     </a>
                 </div>

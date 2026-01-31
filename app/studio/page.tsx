@@ -7,8 +7,8 @@ const hardware = [
         category: "Computer",
         icon: Cpu,
         items: [
-            { name: "Processor", value: "Intel Core i5-12600" },
-            { name: "RAM", value: "32GB DDR4" },
+            { name: "Processor", value: "13th Gen Intel Core i7-13620H (2.40 GHz)" },
+            { name: "RAM", value: "16GB (15.7GB usable)" },
             { name: "GPU", value: "Integrated Graphics" },
         ]
     },
@@ -32,8 +32,7 @@ const hardware = [
         category: "Storage",
         icon: HardDrive,
         items: [
-            { name: "Primary", value: "1TB NVMe SSD" },
-            { name: "Secondary", value: "2TB HDD" },
+            { name: "Primary", value: "512GB SSD" },
         ]
     },
 ];

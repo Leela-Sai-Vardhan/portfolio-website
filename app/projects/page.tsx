@@ -10,6 +10,32 @@ import { Badge } from "@/components/ui/badge";
 
 const projects = [
     {
+        title: "Earrupai - AI-Powered Mobile App",
+        description: "An innovative mobile application published on Google Play Store. Features AI-powered functionality to enhance user experience and solve real-world problems with intelligent automation.",
+        status: "Completed",
+        tech: ["Flutter", "Dart", "Firebase", "AI/ML", "Android"],
+        github: null,
+        demo: "https://play.google.com/store/apps/details?id=com.earrupai",
+        learnings: [
+            "Built production-ready mobile app with Flutter",
+            "Integrated AI/ML features for intelligent functionality",
+            "Published and maintained app on Google Play Store",
+        ],
+    },
+    {
+        title: "Trinetra - Mobile Application",
+        description: "A feature-rich mobile application available on Google Play Store. Designed to provide seamless user experience with modern UI/UX principles and robust functionality.",
+        status: "Completed",
+        tech: ["Flutter", "Dart", "Firebase", "Android", "Material Design"],
+        github: null,
+        demo: "https://play.google.com/store/apps/details?id=com.trinetra",
+        learnings: [
+            "Developed cross-platform mobile app with Flutter",
+            "Implemented Material Design principles",
+            "Managed app deployment and updates on Play Store",
+        ],
+    },
+    {
         title: "DevConnect - Developer Community Platform",
         description: "A platform for developers to share projects, get feedback, and collaborate with peers. Features real-time chat, project showcases, and skill-based matching.",
         status: "In Progress",

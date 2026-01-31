@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { ArrowRight, Github, Linkedin, Mail } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { RoleSwitcher } from "@/components/role-switcher";
 
 export default function Home() {
   return (
@@ -14,12 +15,11 @@ export default function Home() {
               Leela Sai Vardhan Dhavala
             </span>
           </h1>
-          <h2 className="text-2xl font-semibold text-muted-foreground lg:text-3xl">
-            Full-Stack Developer Student
-          </h2>
+          <RoleSwitcher />
           <p className="max-w-2xl text-lg leading-relaxed">
-            Passionate about building scalable web applications with modern technologies.
-            Currently seeking <span className="font-semibold text-foreground">full-stack internship opportunities</span> to
+            Passionate about building scalable web applications and innovative mobile apps.
+            Published <span className="font-semibold text-foreground">2 apps on Google Play Store</span> (Earrupai & Trinetra).
+            Currently seeking <span className="font-semibold text-foreground">full-stack and mobile development internship opportunities</span> to
             contribute to impactful projects and grow as a developer.
           </p>
         </div>
@@ -42,16 +42,16 @@ export default function Home() {
         {/* Quick Stats */}
         <div className="grid grid-cols-2 gap-6 pt-8 md:grid-cols-4">
           <div className="glass-card glass-card-hover rounded-lg p-4 space-y-1">
-            <p className="text-3xl font-bold text-primary">5+</p>
+            <p className="text-3xl font-bold text-primary">7+</p>
             <p className="text-sm text-muted-foreground">Projects Built</p>
+          </div>
+          <div className="glass-card glass-card-hover rounded-lg p-4 space-y-1">
+            <p className="text-3xl font-bold text-primary">2</p>
+            <p className="text-sm text-muted-foreground">Published Apps</p>
           </div>
           <div className="glass-card glass-card-hover rounded-lg p-4 space-y-1">
             <p className="text-3xl font-bold text-primary">3+</p>
             <p className="text-sm text-muted-foreground">Hackathons</p>
-          </div>
-          <div className="glass-card glass-card-hover rounded-lg p-4 space-y-1">
-            <p className="text-3xl font-bold text-primary">10+</p>
-            <p className="text-sm text-muted-foreground">Technologies</p>
           </div>
           <div className="glass-card glass-card-hover rounded-lg p-4 space-y-1">
             <p className="text-3xl font-bold text-primary">Open</p>
@@ -73,7 +73,7 @@ export default function Home() {
           </Button>
           <Button variant="ghost" size="icon" asChild>
             <a
-              href="https://www.linkedin.com/in/leela-sai-vardhan-dhavala-284024339/"
+              href="https://www.linkedin.com/in/leela-sai-vardhan-dhavala/"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="LinkedIn"

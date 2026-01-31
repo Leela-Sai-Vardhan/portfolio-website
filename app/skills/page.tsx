@@ -22,11 +22,12 @@ export default function SkillsPage() {
 
                 {/* Description */}
                 <p className="text-lg leading-relaxed">
-                    As a full-stack Software Engineer, I specialize in building scalable web applications using modern
-                    technologies such as <span className="font-semibold text-foreground">Next.js</span>,{" "}
-                    <span className="font-semibold text-foreground">React</span>, and{" "}
-                    <span className="font-semibold text-foreground">Tailwind CSS</span>. I'm also expanding my
-                    expertise into DevOps and cloud practices to create efficient, maintainable, robust web solutions.
+                    As a full-stack Software Engineer and mobile app developer, I specialize in building scalable web applications and
+                    innovative mobile apps using modern technologies such as <span className="font-semibold text-foreground">Next.js</span>,{" "}
+                    <span className="font-semibold text-foreground">React</span>,{" "}
+                    <span className="font-semibold text-foreground">Flutter</span>, and{" "}
+                    <span className="font-semibold text-foreground">Tailwind CSS</span>. I've published 2 apps on Google Play Store
+                    and I'm also expanding my expertise into DevOps and cloud practices to create efficient, maintainable, robust solutions.
                 </p>
 
                 {/* Skills Sections */}
@@ -36,6 +37,16 @@ export default function SkillsPage() {
                         <h3 className="mb-6 text-xl font-semibold">Frontend Development</h3>
                         <div className="flex flex-wrap gap-3">
                             {["HTML", "CSS", "JavaScript", "TypeScript", "Tailwind CSS", "shadcn/ui", "Material UI", "Framer Motion", "React", "Next.js"].map((tech) => (
+                                <TechBadge key={tech} name={tech} />
+                            ))}
+                        </div>
+                    </div>
+
+                    {/* Mobile Development */}
+                    <div>
+                        <h3 className="mb-6 text-xl font-semibold">Mobile Development</h3>
+                        <div className="flex flex-wrap gap-3">
+                            {["Flutter", "Dart", "Android", "Firebase", "Material Design", "Play Store"].map((tech) => (
                                 <TechBadge key={tech} name={tech} />
                             ))}
                         </div>

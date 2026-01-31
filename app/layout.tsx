@@ -11,19 +11,26 @@ import { KeyboardShortcuts } from "@/components/keyboard-shortcuts";
 import { FocusModeProvider } from "@/components/focus-mode-context";
 
 export const metadata: Metadata = {
-  title: "Leela Sai Vardhan Dhavala - Full-Stack Developer",
-  description: "Portfolio website showcasing projects, skills, and experience. Open to full-stack internship opportunities.",
+  title: "Leela Sai Vardhan Dhavala - Full-Stack & App Developer",
+  description: "Portfolio showcasing web and mobile app development projects. Published 2 apps on Google Play Store (Earrupai & Trinetra). Open to full-stack and mobile development internship opportunities.",
   keywords: [
     "Leela Sai Vardhan Dhavala",
     "Full Stack Developer",
+    "App Developer",
+    "Mobile Developer",
     "Web Developer",
     "React Developer",
     "Next.js Developer",
+    "Flutter Developer",
+    "Android Developer",
     "TypeScript",
     "Portfolio",
     "Software Engineer",
     "Frontend Developer",
     "Backend Developer",
+    "Google Play Store",
+    "Earrupai",
+    "Trinetra",
   ],
   authors: [{ name: "Leela Sai Vardhan Dhavala" }],
   creator: "Leela Sai Vardhan Dhavala",
@@ -33,8 +40,8 @@ export const metadata: Metadata = {
     locale: "en_US",
     url: "https://sai-vardhan-portfolio.vercel.app",
     siteName: "Leela Sai Vardhan Dhavala - Portfolio",
-    title: "Leela Sai Vardhan Dhavala - Full-Stack Developer",
-    description: "Portfolio showcasing web development projects, skills in React, Next.js, TypeScript, and more. Open to full-stack internship opportunities.",
+    title: "Leela Sai Vardhan Dhavala - Full-Stack & App Developer",
+    description: "Portfolio showcasing web and mobile app development. Published 2 apps on Google Play Store. Skills in React, Next.js, Flutter, TypeScript, and more. Open to full-stack and mobile development internships.",
     images: [
       {
         url: "/og-image.png",
@@ -46,8 +53,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Leela Sai Vardhan Dhavala - Full-Stack Developer",
-    description: "Portfolio showcasing web development projects and skills. Open to full-stack internship opportunities.",
+    title: "Leela Sai Vardhan Dhavala - Full-Stack & App Developer",
+    description: "Portfolio showcasing web and mobile app development. Published 2 apps on Google Play Store. Open to full-stack and mobile development internships.",
     images: ["/og-image.png"],
   },
   robots: {
@@ -79,11 +86,12 @@ export default function RootLayout({
               "@type": "Person",
               name: "Leela Sai Vardhan Dhavala",
               url: "https://sai-vardhan-portfolio.vercel.app",
-              jobTitle: "Full-Stack Developer",
-              description: "Experienced developer specializing in React, Next.js, and modern web technologies. Open to full-stack internship opportunities.",
+              jobTitle: "Full-Stack & Mobile App Developer",
+              description: "Developer specializing in React, Next.js, Flutter, and modern web/mobile technologies. Published 2 apps on Google Play Store (Earrupai & Trinetra). Open to full-stack and mobile development internship opportunities.",
               sameAs: [
                 "https://github.com/Leela-Sai-Vardhan",
-                // Add LinkedIn and other social profiles here
+                "https://www.linkedin.com/in/leela-sai-vardhan-dhavala/",
+                "https://www.reddit.com/user/Leela_sai_vardhan/",
               ],
             }),
           }}

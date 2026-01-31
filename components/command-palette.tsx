@@ -139,7 +139,7 @@ export function CommandPalette() {
                             </CommandItem>
                             <CommandItem
                                 onSelect={() => {
-                                    runCommand(() => window.open("https://linkedin.com/in/yourusername", "_blank"));
+                                    runCommand(() => window.open("https://www.linkedin.com/in/leela-sai-vardhan-dhavala/", "_blank"));
                                 }}
                             >
                                 <span className="mr-2">🔗</span>
