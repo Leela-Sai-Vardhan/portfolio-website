@@ -38,9 +38,9 @@ export function Sidebar() {
                 />
             )}
 
-            {/* Collapsed Sidebar - Shows only hamburger */}
+            {/* Collapsed Sidebar - Shows only hamburger on desktop, hidden on mobile */}
             {isCollapsed && (
-                <aside className="fixed left-0 top-0 z-40 h-screen w-16 border-r border-border bg-card transition-all duration-300">
+                <aside className="hidden md:fixed md:left-0 md:top-0 md:z-40 md:h-screen md:w-16 md:border-r md:border-border md:bg-card md:block transition-all duration-300">
                     <div className="flex h-full flex-col items-center p-4">
                         <Button
                             variant="ghost"

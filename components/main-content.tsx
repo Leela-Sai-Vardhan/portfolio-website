@@ -11,10 +11,10 @@ export function MainContent({ children }: { children: React.ReactNode }) {
 
     return (
         <div className={`flex-1 transition-all duration-300 ${isFocusMode
-                ? 'pl-0'
-                : isCollapsed
-                    ? 'pl-0 md:pl-16'
-                    : 'pl-0 md:pl-64'
+            ? 'pl-0'
+            : isCollapsed
+                ? 'pl-0 md:pl-16'  // No padding on mobile, small padding on desktop when collapsed
+                : 'pl-0 md:pl-64'  // No padding on mobile, full padding on desktop when expanded
             }`}>
             {/* Navbar */}
             <Navbar />

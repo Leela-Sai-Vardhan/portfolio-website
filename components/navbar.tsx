@@ -1,25 +1,42 @@
 "use client";
 
-import { Moon, Sun, Github, Linkedin, FileText, Music } from "lucide-react";
+import { Moon, Sun, Github, Linkedin, FileText, Music, Menu } from "lucide-react";
 import { useTheme } from "next-themes";
 import { Button } from "@/components/ui/button";
 import { CommandPalette } from "@/components/command-palette";
 import { LiveClock } from "@/components/live-clock";
 import { useFocusMode } from "@/components/focus-mode-context";
+import { useSidebar } from "@/components/sidebar-context";
 
 export function Navbar() {
     const { theme, setTheme } = useTheme();
     const { isFocusMode } = useFocusMode();
+    const { isCollapsed, setIsCollapsed } = useSidebar();
 
     // Hide navbar in focus mode
     if (isFocusMode) return null;
 
     return (
-        <header className="fixed left-64 right-0 top-0 z-30 border-b border-border/40 bg-background/60 backdrop-blur-md supports-[backdrop-filter]:bg-background/60">
-            <div className="flex h-14 items-center justify-between gap-4 px-6">
-                {/* Left side - Search Bar */}
-                <div className="flex-1 max-w-md">
-                    <CommandPalette />
+        <header className={`fixed right-0 top-0 z-30 border-b border-border/40 bg-background/60 backdrop-blur-md supports-[backdrop-filter]:bg-background/60 transition-all duration-300 ${isCollapsed ? 'left-0 md:left-16' : 'left-0 md:left-64'
+            }`}>
+            <div className="flex h-14 items-center justify-between gap-4 px-4 md:px-6">
+                {/* Left side - Mobile Menu Button + Search Bar */}
+                <div className="flex items-center gap-3 flex-1">
+                    {/* Mobile Menu Button - Only visible on mobile */}
+                    <Button
+                        variant="ghost"
+                        size="icon"
+                        className="h-8 w-8 md:hidden"
+                        onClick={() => setIsCollapsed(false)}
+                        aria-label="Open menu"
+                    >
+                        <Menu className="h-5 w-5" />
+                    </Button>
+
+                    {/* Search Bar */}
+                    <div className="flex-1 max-w-md">
+                        <CommandPalette />
+                    </div>
                 </div>
 
                 {/* Right side - Utilities */}
