@@ -1,18 +1,52 @@
 "use client";
 
 import { useEffect, useState } from 'react';
+import { createClient } from '@supabase/supabase-js';
+
+// Initialize Supabase client
+const supabaseUrl = 'https://mcrdjwdkcoulyiafiiaz.supabase.co';
+const supabaseAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1jcmRqd2RrY291bHlpYWZpaWF6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzYxNzI2NjYsImV4cCI6MjA1MTc0ODY2Nn0.bNvXNXBVPkdNTuFJqFHfCMGgfKwTlJnxmWsrYQqOAzI';
+const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
 export default function EmailVerificationPage() {
     const [isLoading, setIsLoading] = useState(false);
     const [showPlayStore, setShowPlayStore] = useState(false);
+    const [isVerifying, setIsVerifying] = useState(true);
 
     useEffect(() => {
-        // Auto-open app after 1.5 seconds
-        const timer = setTimeout(() => {
-            openApp();
-        }, 1500);
+        // Verify email first, then auto-open app
+        const verifyAndOpenApp = async () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const tokenHash = urlParams.get('token_hash');
+            const type = urlParams.get('type');
 
-        return () => clearTimeout(timer);
+            if (tokenHash && type === 'email') {
+                try {
+                    console.log('Verifying email with Supabase...');
+                    const { data, error } = await supabase.auth.verifyOtp({
+                        token_hash: tokenHash,
+                        type: 'email'
+                    });
+
+                    if (error) {
+                        console.error('Verification error:', error);
+                    } else {
+                        console.log('✅ Email verified successfully!', data);
+                    }
+                } catch (err) {
+                    console.error('Verification exception:', err);
+                }
+            }
+
+            setIsVerifying(false);
+
+            // Auto-open app after verification
+            setTimeout(() => {
+                openApp();
+            }, 1500);
+        };
+
+        verifyAndOpenApp();
     }, []);
 
     const buildDeepLink = () => {
