@@ -270,7 +270,7 @@
             </div>
         </div>
 
-        <button class="btn btn-primary" id="openAppBtn" onclick="openApp()">
+        <button class="btn btn-primary" id="openAppBtn" onclick="openApp(window._verificationSuccess !== false)">
             Open Earn Rupai App
         </button>
 
@@ -333,20 +333,17 @@
             }
         }
 
-        // Build deep link URL
-        function buildDeepLink() {
-            const baseUrl = 'https://sai-vardhan-portfolio.vercel.app/earn-rupai/auth/verify';
-            const params = new URLSearchParams();
-
-            if (tokenHash) params.append('token_hash', tokenHash);
-            if (type) params.append('type', type);
-
-            return params.toString() ? `${baseUrl}?${params.toString()}` : baseUrl;
+        // Build deep link URL using custom scheme (direct app opener)
+        function buildDeepLink(success) {
+            // Use custom scheme for reliable app opening on Android
+            return success
+                ? 'earnrupai://auth/callback?success=true'
+                : 'earnrupai://auth/callback?success=false&message=Verification%20failed.%20Please%20try%20again.';
         }
 
         // Try to open the app
-        function openApp() {
-            const deepLink = buildDeepLink();
+        function openApp(success = true) {
+            const deepLink = buildDeepLink(success);
             const openAppBtn = document.getElementById('openAppBtn');
             const playStoreBtn = document.getElementById('playStoreBtn');
             const loading = document.getElementById('loading');
@@ -355,17 +352,15 @@
             openAppBtn.style.display = 'none';
             loading.classList.add('active');
 
-            // Try to open the app
+            // Try to open the app via custom scheme
             window.location.href = deepLink;
 
-            // If app doesn't open in 2 seconds, show Play Store button
+            // If app doesn't open in 2.5 seconds, show Play Store button
             setTimeout(() => {
                 loading.classList.remove('active');
                 playStoreBtn.style.display = 'inline-block';
-
-                // Update button text
                 playStoreBtn.innerHTML = 'App not installed? Download from Play Store';
-            }, 2000);
+            }, 2500);
         }
 
         // Initialize on page load
@@ -376,20 +371,12 @@
 
             // Verify email first
             const verified = await verifyEmail();
+            window._verificationSuccess = verified;
 
-            if (verified) {
-                console.log('✅ Email verification successful');
-                // Auto-open app after 1.5 seconds
-                setTimeout(() => {
-                    openApp();
-                }, 1500);
-            } else {
-                console.error('❌ Email verification failed');
-                // Still try to open app in case verification already happened
-                setTimeout(() => {
-                    openApp();
-                }, 1500);
-            }
+            // Auto-open app after 1.5 seconds regardless (app handles success/failure)
+            setTimeout(() => {
+                openApp(verified);
+            }, 1500);
         });
 
         // Make openApp available globally for button onclick
