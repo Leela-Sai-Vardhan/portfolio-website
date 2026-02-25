@@ -333,17 +333,18 @@
             }
         }
 
-        // Build deep link URL using custom scheme (direct app opener)
-        function buildDeepLink(success) {
-            // Use custom scheme for reliable app opening on Android
-            return success
-                ? 'earnrupai://auth/callback?success=true'
-                : 'earnrupai://auth/callback?success=false&message=Verification%20failed.%20Please%20try%20again.';
+        // Build Android Intent URL (works in Chrome without user gesture)
+        function buildIntentUrl(success) {
+            const params = success
+                ? 'success=true'
+                : 'success=false&message=Verification%20failed.%20Please%20try%20again.';
+            // Android Intent URL format - Chrome handles this reliably
+            return `intent://auth/callback?${params}#Intent;scheme=earnrupai;package=com.earnrupai.earnrupai;S.browser_fallback_url=https%3A%2F%2Fplay.google.com%2Fstore%2Fapps%2Fdetails%3Fid%3Dcom.earnrupai.earnrupai;end`;
         }
 
         // Try to open the app
         function openApp(success = true) {
-            const deepLink = buildDeepLink(success);
+            const intentUrl = buildIntentUrl(success);
             const openAppBtn = document.getElementById('openAppBtn');
             const playStoreBtn = document.getElementById('playStoreBtn');
             const loading = document.getElementById('loading');
@@ -352,28 +353,27 @@
             openAppBtn.style.display = 'none';
             loading.classList.add('active');
 
-            // Try to open the app via custom scheme
-            window.location.href = deepLink;
+            // Navigate using Android Intent URL - Chrome handles this natively
+            // This works even without a direct user gesture (unlike earnrupai://)
+            window.location.href = intentUrl;
 
-            // If app doesn't open in 2.5 seconds, show Play Store button
+            // If app doesn't open in 3 seconds, show Play Store button
             setTimeout(() => {
                 loading.classList.remove('active');
                 playStoreBtn.style.display = 'inline-block';
-                playStoreBtn.innerHTML = 'App not installed? Download from Play Store';
-            }, 2500);
+                playStoreBtn.innerHTML = 'App not installed? Get it on Play Store';
+            }, 3000);
         }
 
         // Initialize on page load
         window.addEventListener('DOMContentLoaded', async () => {
             console.log('Verification page loaded');
-            console.log('Token hash:', tokenHash);
-            console.log('Type:', type);
 
             // Verify email first
             const verified = await verifyEmail();
             window._verificationSuccess = verified;
 
-            // Auto-open app after 1.5 seconds regardless (app handles success/failure)
+            // Auto-open app after 1.5 seconds
             setTimeout(() => {
                 openApp(verified);
             }, 1500);
