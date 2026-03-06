@@ -28,7 +28,7 @@ const projects = [
         status: "Completed",
         tech: ["Flutter", "Dart", "Firebase", "AI/ML", "Android"],
         github: null,
-        demo: "https://play.google.com/store/apps/details?id=com.earrupai",
+        demo: "https://play.google.com/store/apps/details?id=com.earnrupai.earnrupai",
         learnings: [
             "Built production-ready mobile app with Flutter",
             "Integrated AI/ML features for intelligent functionality",
