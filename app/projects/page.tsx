@@ -12,7 +12,7 @@ const projects = [
     {
         title: "Task Turkey — Crowdsourced AI Video Platform",
         description: "A micro-task platform where users contribute free-tier AI tool usage (Kling, Runway, Hailuo, Wan 2.1) to collectively produce monetizable YouTube videos. Users claim scene tasks, generate clips with AI tools, upload to their own Google Drive, and earn tokens. Zero storage cost — the platform stores only URL strings.",
-        status: "Completed",
+        status: "In Progress",
         tech: ["Next.js", "TypeScript", "Supabase", "PostgreSQL", "Drizzle ORM", "Tailwind CSS", "Google OAuth", "Google Drive API"],
         github: "https://github.com/Leela-Sai-Vardhan/Task-Turkey",
         demo: "https://task-turkey.vercel.app",
@@ -48,19 +48,7 @@ const projects = [
             "Managed app deployment and updates on Play Store",
         ],
     },
-    {
-        title: "DevConnect - Developer Community Platform",
-        description: "A platform for developers to share projects, get feedback, and collaborate with peers. Features real-time chat, project showcases, and skill-based matching.",
-        status: "In Progress",
-        tech: ["Next.js", "TypeScript", "Tailwind CSS", "Supabase", "WebSockets"],
-        github: "https://github.com/yourusername/devconnect",
-        demo: null,
-        learnings: [
-            "Implemented real-time features using WebSockets",
-            "Designed scalable database schema with Supabase",
-            "Built authentication system with JWT",
-        ],
-    },
+
     {
         title: "CodeSnap - Code Snippet Manager",
         description: "Save, organize, and share code snippets with syntax highlighting. Features collections, tags, and search functionality for easy snippet management.",
