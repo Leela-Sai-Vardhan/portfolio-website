@@ -10,6 +10,15 @@ export default function StatsPage() {
     const [loveCount, setLoveCount] = useState(0);
     const [hasLoved, setHasLoved] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
+    const [githubStats, setGithubStats] = useState({
+        hireable: true,
+        public_repos: 0,
+        followers: 0,
+        following: 0,
+        company: 'Student',
+        location: 'Kanuru Vijayawada'
+    });
+    const [isGithubLoading, setIsGithubLoading] = useState(true);
 
     useEffect(() => {
         // Generate or retrieve visitor ID
@@ -44,6 +53,25 @@ export default function StatsPage() {
         // Check if user has already loved
         const loved = localStorage.getItem('hasLovedPortfolio') === 'true';
         setHasLoved(loved);
+
+        // Fetch GitHub stats
+        fetch('https://api.github.com/users/Leela-Sai-Vardhan')
+            .then(res => res.json())
+            .then(data => {
+                setGithubStats({
+                    hireable: data.hireable ?? true,
+                    public_repos: data.public_repos || 0,
+                    followers: data.followers || 0,
+                    following: data.following || 0,
+                    company: data.company || 'Student',
+                    location: data.location || 'Kanuru Vijayawada'
+                });
+                setIsGithubLoading(false);
+            })
+            .catch(err => {
+                console.error('Error fetching GitHub stats:', err);
+                setIsGithubLoading(false);
+            });
     }, []);
 
     const handleLove = async () => {
@@ -147,16 +175,14 @@ export default function StatsPage() {
                     </div>
 
                     {/* GitHub Contribution Graph */}
-                    <div className="rounded-xl border border-border bg-card p-6">
+                    <div className="rounded-xl border border-border bg-card p-6 overflow-hidden">
                         <h3 className="mb-4 text-lg font-semibold">Contribution Activity</h3>
-                        <div className="flex items-center justify-center rounded-lg bg-muted p-8">
-                            <p className="text-sm text-muted-foreground">
-                                GitHub contribution graph will appear here
-                                <br />
-                                <span className="text-xs">
-                                    (Requires GitHub API integration)
-                                </span>
-                            </p>
+                        <div className="flex items-center justify-center rounded-lg bg-muted/30 p-4 sm:p-8 overflow-x-auto">
+                            <img
+                                src="https://ghchart.rshah.org/0ea5e9/Leela-Sai-Vardhan"
+                                alt="GitHub Contribution Graph"
+                                className="min-w-[700px] w-full mix-blend-multiply dark:mix-blend-lighten"
+                            />
                         </div>
                     </div>
 
@@ -170,7 +196,9 @@ export default function StatsPage() {
                                 </div>
                                 <div>
                                     <p className="text-sm text-muted-foreground">Hireable</p>
-                                    <p className="text-xl font-semibold text-green-500">Yes</p>
+                                    <p className="text-xl font-semibold text-green-500">
+                                        {isGithubLoading ? "..." : (githubStats.hireable ? "Yes" : "No")}
+                                    </p>
                                 </div>
                             </div>
                         </div>
@@ -183,7 +211,9 @@ export default function StatsPage() {
                                 </div>
                                 <div>
                                     <p className="text-sm text-muted-foreground">Public Repos</p>
-                                    <p className="text-xl font-semibold">15</p>
+                                    <p className="text-xl font-semibold">
+                                        {isGithubLoading ? "..." : githubStats.public_repos}
+                                    </p>
                                 </div>
                             </div>
                         </div>
@@ -196,7 +226,9 @@ export default function StatsPage() {
                                 </div>
                                 <div>
                                     <p className="text-sm text-muted-foreground">Followers</p>
-                                    <p className="text-xl font-semibold">42</p>
+                                    <p className="text-xl font-semibold">
+                                        {isGithubLoading ? "..." : githubStats.followers}
+                                    </p>
                                 </div>
                             </div>
                         </div>
@@ -209,7 +241,9 @@ export default function StatsPage() {
                                 </div>
                                 <div>
                                     <p className="text-sm text-muted-foreground">Following</p>
-                                    <p className="text-xl font-semibold">28</p>
+                                    <p className="text-xl font-semibold">
+                                        {isGithubLoading ? "..." : githubStats.following}
+                                    </p>
                                 </div>
                             </div>
                         </div>
@@ -222,7 +256,9 @@ export default function StatsPage() {
                                 </div>
                                 <div>
                                     <p className="text-sm text-muted-foreground">Company</p>
-                                    <p className="text-xl font-semibold">Student</p>
+                                    <p className="text-xl font-semibold line-clamp-1" title={githubStats.company}>
+                                        {isGithubLoading ? "..." : githubStats.company}
+                                    </p>
                                 </div>
                             </div>
                         </div>
@@ -235,19 +271,12 @@ export default function StatsPage() {
                                 </div>
                                 <div>
                                     <p className="text-sm text-muted-foreground">Location</p>
-                                    <p className="text-xl font-semibold">Kanuru Vijayawada</p>
+                                    <p className="text-xl font-semibold line-clamp-1" title={githubStats.location}>
+                                        {isGithubLoading ? "..." : githubStats.location}
+                                    </p>
                                 </div>
                             </div>
                         </div>
-                    </div>
-
-                    {/* Note about GitHub Stats */}
-                    <div className="rounded-lg border border-border/50 bg-muted/50 p-4">
-                        <p className="text-sm text-muted-foreground">
-                            <span className="font-semibold">Note:</span> These are placeholder values. To show real
-                            GitHub stats, you'll need to integrate the GitHub API. Check the walkthrough for
-                            instructions on adding live data.
-                        </p>
                     </div>
                 </div>
             </div>
