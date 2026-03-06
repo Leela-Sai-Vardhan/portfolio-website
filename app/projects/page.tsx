@@ -10,6 +10,19 @@ import { Badge } from "@/components/ui/badge";
 
 const projects = [
     {
+        title: "Task Turkey — Crowdsourced AI Video Platform",
+        description: "A micro-task platform where users contribute free-tier AI tool usage (Kling, Runway, Hailuo, Wan 2.1) to collectively produce monetizable YouTube videos. Users claim scene tasks, generate clips with AI tools, upload to their own Google Drive, and earn tokens. Zero storage cost — the platform stores only URL strings.",
+        status: "Completed",
+        tech: ["Next.js", "TypeScript", "Supabase", "PostgreSQL", "Drizzle ORM", "Tailwind CSS", "Google OAuth", "Google Drive API"],
+        github: "https://github.com/Leela-Sai-Vardhan/Task-Turkey",
+        demo: "https://task-turkey.vercel.app",
+        learnings: [
+            "Built a full-stack SaaS platform with atomic DB transactions and race-condition-safe task claiming",
+            "Implemented Google OAuth + Drive API integration with open-redirect protection",
+            "Designed a zero-cost architecture: token ledger, RLS policies, and URL-only video storage",
+        ],
+    },
+    {
         title: "Earrupai - AI-Powered Mobile App",
         description: "An innovative mobile application published on Google Play Store. Features AI-powered functionality to enhance user experience and solve real-world problems with intelligent automation.",
         status: "Completed",
